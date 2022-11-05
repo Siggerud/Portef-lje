@@ -1,3 +1,5 @@
+# tool for rebalancing a portfolio
+
 import os
 import datetime
 import csv

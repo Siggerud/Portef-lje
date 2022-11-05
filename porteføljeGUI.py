@@ -1,3 +1,5 @@
+# this app is for rebalancing portfolios
+
 import tkinter as tk
 from tkinter import ttk
 from csvTool import *
