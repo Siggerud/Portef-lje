@@ -1,5 +1,4 @@
 # tool for rebalancing a portfolio
-# testStr
 
 import os
 import datetime
