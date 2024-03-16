@@ -212,7 +212,7 @@ class csvTool:
 
     # search through download folder and get the relevant files
     def findRelevantCSVs(self):
-        downloadPath = "C:\\Users\\Chris\\Downloads"
+        downloadPath = "C:\\Users\\Christian\\Downloads"
         downloadedFiles = os.listdir(downloadPath)
 
         relevantFileList = []
