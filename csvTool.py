@@ -88,7 +88,7 @@ class csvTool:
         data = self.getRelevantData(files)
         groupedDataValues = self.groupDataValues(data)
 
-        weights = [15,15,15,15,10,15,15] # ideal weights for the sectors
+        weights = [16,16,10,16,10,16,16] # ideal weights for the sectors
 
         totalSum = self.getTotalSum(deposit, groupedDataValues)
         weightedValues = self.getWeightedValues(weights, totalSum)
