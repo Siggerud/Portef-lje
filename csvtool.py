@@ -5,16 +5,26 @@ import datetime
 import csv
 
 
-class csvTool:
+class Csvtool:
     def __init__(self):
         self.differenceInPercentList = []
-        self.sectors = ["Asia", "Europe", "Emerging markets", "Global", "Nordic", "Technology", "USA"]
+        self.sectors = [
+            "Asia",
+            "Europe",
+            "Emerging markets",
+            "Global",
+            "Nordic",
+            "Technology",
+            "USA",
+        ]
         self.diffInValue = []
 
     # sort sectors, difference in value and percentage based on how much they have devalued
     def sortLists(self):
         # combine lists and sort based on difference in percentages
-        combinedLists = zip(self.differenceInPercentList, self.sectors, self.diffInValue)
+        combinedLists = zip(
+            self.differenceInPercentList, self.sectors, self.diffInValue
+        )
         sortedLists = sorted(combinedLists)
 
         # split the lists after sorting
@@ -22,7 +32,6 @@ class csvTool:
         diffInPercent = []
         diffInValue = []
         for i in range(len(sortedLists)):
-
             sectors.append(sortedLists[i][1])
             diffInPercent.append(sortedLists[i][0])
             diffInValue.append(sortedLists[i][2])
@@ -35,7 +44,6 @@ class csvTool:
         sortedLists = self.addMetricsToSortedLists(sortedLists)
 
         return sortedLists
-
 
     # add metrics to percentages
     def addMetricsToSortedLists(self, sortedLists):
@@ -88,7 +96,7 @@ class csvTool:
         data = self.getRelevantData(files)
         groupedDataValues = self.groupDataValues(data)
 
-        weights = [16,16,10,16,10,16,16] # ideal weights for the sectors
+        weights = [16, 16, 10, 16, 10, 16, 16]  # ideal weights for the sectors
 
         totalSum = self.getTotalSum(deposit, groupedDataValues)
         weightedValues = self.getWeightedValues(weights, totalSum)
@@ -145,7 +153,6 @@ class csvTool:
 
     # get the weight of the ideal values for all sectors
     def getWeightedValues(self, weights, totalSum):
-
         weightedValues = []
         for i in range(len(weights)):
             fraction = weights[i] * 0.01
@@ -165,13 +172,13 @@ class csvTool:
     # and then find the value of the sector
     def groupDataValues(self, data):
         Funds = []
-        Funds.append([["Asia"], 0]) # Asia
-        Funds.append([["Europ"], 0]) # Europe
-        Funds.append([["Fremvoksende", "Emerging"], 0]) # Emerging market
-        Funds.append([["Global"], 0]) # Global
-        Funds.append([["Suomi", "Sverige", "Danmark", "Norge"], 0]) # Scandinavia
-        Funds.append([["Teknologi", "Nasdaq"], 0]) # Technology
-        Funds.append([["USA"], 0]) # USA
+        Funds.append([["Asia"], 0])  # Asia
+        Funds.append([["Europ"], 0])  # Europe
+        Funds.append([["Fremvoksende", "Emerging"], 0])  # Emerging market
+        Funds.append([["Global"], 0])  # Global
+        Funds.append([["Suomi", "Sverige", "Danmark", "Norge"], 0])  # Scandinavia
+        Funds.append([["Teknologi", "Nasdaq"], 0])  # Technology
+        Funds.append([["USA"], 0])  # USA
 
         # find the searchwords in data, and add value to the sector when found
         for fundOrEtf in data:
@@ -197,12 +204,12 @@ class csvTool:
             csv_reader = csv.reader(openFile, delimiter="\t")
 
             relevantSubData = []
-            count=0
+            count = 0
             for row in csv_reader:
-                if count != 0: # skip title row
+                if count != 0:  # skip title row
                     temp = []
-                    temp.append(row[0]) # Name
-                    temp.append(row[8]) # Todays value
+                    temp.append(row[0])  # Name
+                    temp.append(row[8])  # Todays value
                     relevantSubData.append(temp)
                 count += 1
 
@@ -223,7 +230,9 @@ class csvTool:
                     # if found, check if downloaded today
                     filePath = os.path.join(downloadPath, file)
                     creationTimeRaw = os.path.getctime(filePath)
-                    creationTimeFormatted = str(datetime.datetime.fromtimestamp(creationTimeRaw))
+                    creationTimeFormatted = str(
+                        datetime.datetime.fromtimestamp(creationTimeRaw)
+                    )
 
                     todayRaw = datetime.date.today()
                     todayFormatted = todayRaw.strftime("%Y-%m-%d")
@@ -234,5 +243,3 @@ class csvTool:
         # sort to get aksjelister first
         relevantFileList.sort()
         return relevantFileList
-
-

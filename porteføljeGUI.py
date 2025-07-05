@@ -2,14 +2,15 @@
 
 import tkinter as tk
 from tkinter import ttk
-from csvTool import *
+from csvtool import Csvtool
 
 root = tk.Tk()
 root.geometry("900x500")
 root.title("Portefølje")
 
 # Create instance of Tool
-Tool = csvTool()
+Tool = Csvtool()
+
 
 # import Data about portfolio
 def getPortfolio():
@@ -17,7 +18,9 @@ def getPortfolio():
     importList = Tool.createPortfolio(deposit)
 
     if len(importList) == 6:
-        Button2.config(state="active") # make button active if import of list is successful
+        Button2.config(
+            state="active"
+        )  # make button active if import of list is successful
 
         # make numbers green or red dependent on wether the funds are under or above
         # the ideal value
@@ -32,6 +35,7 @@ def getPortfolio():
                         entryConfigList[2][j].config(foreground="green")
                         entryConfigList[5][j].config(foreground="green")
 
+
 # get tips about what funds to invest in
 def getTips():
     sortedList = Tool.sortLists()
@@ -39,12 +43,12 @@ def getTips():
     entryConfigs = buildTipEntries(sortedList)
 
     for i in range(len(sortedList[1])):
-            if sortedList[1][i][0] != "-":
-                entryConfigs[1][i].config(foreground="red")
-                entryConfigs[2][i].config(foreground="red")
-            else:
-                entryConfigs[1][i].config(foreground="green")
-                entryConfigs[2][i].config(foreground="green")
+        if sortedList[1][i][0] != "-":
+            entryConfigs[1][i].config(foreground="red")
+            entryConfigs[2][i].config(foreground="red")
+        else:
+            entryConfigs[1][i].config(foreground="green")
+            entryConfigs[2][i].config(foreground="green")
 
 
 # build list for tipsed funds and return list with entries
@@ -54,16 +58,17 @@ def buildTipEntries(sortedList):
         temp = []
         for j in range(len(sortedList[i])):
             entryTip = tk.Entry(root)
-            entryTip.grid(row=j+11, column=i)
+            entryTip.grid(row=j + 11, column=i)
             entryTip.insert(0, sortedList[i][j])
             temp.append(entryTip)
         entryTipConfig.append(temp)
 
     return entryTipConfig
 
+
 # Create button
 Button1 = tk.Button(root, text="Import", command=getPortfolio, bg="green")
-Button1.grid(row=1, column = 2)
+Button1.grid(row=1, column=2)
 
 Button2 = tk.Button(root, text="Get tips", state="disabled", command=getTips)
 Button2.grid(row=10, column=0)
@@ -78,7 +83,7 @@ entryDeposit.grid(row=1, column=1)
 
 # defining titles
 labelSector = tk.Label(root, text="Sectors")
-labelSector.grid(row=2,column=0)
+labelSector.grid(row=2, column=0)
 
 labelIdealWeights = tk.Label(root, text="Ideal weights")
 labelIdealWeights.grid(row=2, column=1)
@@ -137,7 +142,7 @@ for i in range(6):
     for j in range(7):
         value = tk.StringVar()
         entry = ttk.Entry(root, textvariable=value)
-        entry.grid(row=j+3, column=i+1)
+        entry.grid(row=j + 3, column=i + 1)
         temp.append(value)
         tempEntry.append(entry)
 
@@ -145,6 +150,3 @@ for i in range(6):
     entryList.append(temp)
 
 root.mainloop()
-
-
-
